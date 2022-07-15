@@ -1,0 +1,387 @@
+//Importem funcions abans de manipular variables:
+@import "../node_modules/bootstrap/scss/_functions";
+
+/* *** Personalitzem variables per defecte sobreescrivint els valors directament *** */
+
+//Canviem colors:
+$primary: #5265E1;
+$danger: #FA5959; // fem servir aquesta variable en lloc de secondary, pq el gris l'aprofitarem
+
+//Creem nou color pel blau fosc:
+$navy: #242A45;
+$white: #FFF; // Ja existeix a BS, però l'elimina en crear el navy :/
+
+//Tipografia:
+$font-family-sans-serif: 'Rubik', sans-serif;
+
+// Personalitzem totes les icones SVG: 
+
+//Menú responsive: burger d'obrir i creu tancar:
+$navbar-dark-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='15' viewBox='0 0 18 15'><path fill='#242A45' fill-rule='evenodd' d='M0 0h18v3H0V0zm0 6h18v3H0V6zm0 6h18v3H0v-3z'/></svg>");
+
+$btn-close-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='15'><path fill='#FFF' fill-rule='evenodd' d='M8 5.379L13.303.075l2.122 2.122L10.12 7.5l5.304 5.303-2.122 2.122L8 9.62l-5.303 5.304-2.122-2.122L5.88 7.5.575 2.197 2.697.075 8 5.38z'/></svg>");
+
+// + Retoc d'estils:
+$btn-close-width: 1.6em;
+$btn-close-opacity: 1;
+
+//Icones obrir i tancar accordions de les FAQS: 
+$accordion-button-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -3 18 17"><path fill="none" stroke="#5267DF" stroke-width="3" d="M1 1l8 8 8-8"/></svg>');
+
+$accordion-button-active-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -2 18 17"><path fill="none" stroke="#FA5959" stroke-width="3" d="M1 1l8 8 8-8"/></svg>');
+
+// + Retocs:
+$accordion-button-active-color: $navy;
+$accordion-border-radius: 0;
+$accordion-button-active-bg: none;
+
+// Icona error en enviar formulari: 
+$form-feedback-icon-invalid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><g fill='none' fill-rule='evenodd'><circle cx='10' cy='10' r='10' fill='#FA5959'/><g fill='#FFF' transform='translate(9 5)'><rect width='2' height='7' rx='1'/><rect width='2' height='2' y='8' rx='1'/></g></g></svg>");
+
+// + Retocs: 
+$input-font-size:  0.9rem; 
+$input-padding-y: 0.58em;
+$input-placeholder-color: #ced4da;
+
+// Personalització NavTabs Features: "esborrem" borders dels tabs fent-los transparents:
+$nav-tabs-border-color: transparent;
+$nav-tabs-link-hover-border-color: transparent;
+$nav-tabs-link-active-border-color: transparent;
+
+/* ***** ----- Importem variables i mixins: ----- ***** */
+@import "../node_modules/bootstrap/scss/_variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+//Augment d'espaiadors per a margins i paddings:
+$custom-spacers: (
+    8: $spacer * 5,
+    10: $spacer * 6,
+    12: $spacer * 8,
+);
+
+$spacers: map-merge($custom-spacers, $spacers);
+
+//Afegim nous colors als temes pq serveixin per a text, fons... (blanc és per bug en la versió de BS):
+$custom-theme-colors: map-merge($theme-colors, (
+  "navy": $navy,
+  "white" : $white
+));
+
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
+
+// Accordion -- retocs per ajustar estils del component:
+.accordion {
+
+  //Eliminem línies dels costats (border):
+  .accordion-item {
+    border-right: 0;
+    border-left: 0;
+   
+    @media (max-width: 767px) {
+      &:first-child { 
+        border-top: 0;
+      }
+    }
+  }
+  
+  //Eliminem estils (línia inferior, ressaltat) del botó:
+  .accordion-button {
+    &:not(.collapsed) {
+      box-shadow: inset 0 ($accordion-border-width * 0) 0;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.font-extra-small {
+  font-size: 0.6rem;
+  letter-spacing: 0.3rem;
+}
+
+.faqs-txt {
+  font-size: 0.9em;
+  color: $gray-700;
+}
+
+@media (max-width: 767px) {
+  footer .flex-column .nav-item {
+    padding: 0.5em 0 0.5em 0;
+
+    &:first-of-type {
+      padding-top: 1.5em;
+      padding-bottom: 1.2em;
+    }
+
+    &:last-of-type {
+      padding: 1.2em 0 1.2em 0;
+    }
+  }
+}
+
+/* Nivell 3 : Exercici 6 => Estats actius tabs */
+
+//Tabs d'apartat Features -- abans d'importar resta BS
+#featuresTab .nav-item {
+  border-bottom: 1px solid $gray-300;
+
+  & .nav-link.active {
+      border-bottom: 3px solid $danger;
+  
+    & .tabs-txt {
+      color: $navy;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #featuresTab .nav-item {
+    padding: 0.6em 0 0.2em 0;
+
+    &:first-child {
+      border-top: 1px solid $gray-300;
+    }
+
+    & .nav-link {
+
+        &.active {
+          border-bottom: 3px solid transparent;
+          position: relative;
+        
+        &:after{
+          content: "";
+          position: absolute;
+          border-bottom: 3px solid $danger;
+          width: 32%;
+          left: 34%;
+          padding-bottom: 0.7em;
+        }
+      }
+    }
+  }
+}
+
+.tabs-txt {
+  color: $secondary;
+
+  &:hover {
+    color: $danger;
+  }
+}
+
+
+/* **** ----- Importem Bootstrap: ----- ***** */
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+
+h1, h2, h5, h6 {
+    color: $navy;
+}
+
+nav.navbar {
+  background-color: #FFF;
+}
+
+.offcanvas {
+    height: 100%;
+    background-color: rgba(36, 42, 69, 0.9);  
+    padding: 0.6em 1em 0 0.6em;
+}
+
+.modal-backdrop {
+  display: none; 
+}
+
+//Estils de les cards:
+.dwl-browser {
+  min-width: 12rem;
+  max-width: 16rem;
+  overflow-x: hidden;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 1rem 1.5rem rgba(black, .2);
+}
+
+.forma-features {
+  width: 84%;
+  height: 80%;
+}
+
+/* Nivell 3 : Exercici 6 => Estats actius de botons, links i avisos */ 
+
+//Menú capçalera 
+#menu .nav-item {
+
+  & .nav-link { 
+    color: $gray-700;
+    letter-spacing: 0.05em;
+    
+    &:hover {
+      color: $danger;    
+    } 
+  }
+} 
+
+@media (max-width: 767px) {
+
+  #menu .nav-item  {
+    padding: 1em 0;
+    border-top: 1px solid rgb(255, 255, 255, 0.3);
+  
+    &:nth-child(3) {
+      border-bottom: 1px solid rgb(255, 255, 255, 0.3);
+    }
+
+    &:last-of-type {
+      border: none;
+    }
+
+    & .nav-link {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: #FFF; 
+    }
+  }
+}
+
+//Botons (1/2): 
+.btn-danger { 
+  color: #FFF;
+  border-width: 2px;
+  letter-spacing: 0.05em;
+
+  &:hover, &:active, &:focus  {
+    color: $danger;
+    background-color: #FFF;
+    border-color: $danger;
+  }
+}
+
+.btn-login {
+  @media (max-width: 767px) {
+    margin-top: 2em;
+    background-color: transparent;
+    color:#FFF;
+    font-size: 1.2rem;
+    border-color: #FFF;
+    padding: 0.8em 0;
+
+    &:active,  &:hover, &:focus {
+    color: #FFF;  
+    background-color: $navy;
+    border-color: #FFF;
+    }
+  }
+}
+
+//Accordion: 
+.accordion-button {
+  color: $navy;
+
+  &:hover {
+    color: $danger;
+  }
+}
+
+//Footer
+footer .nav .nav-item .nav-link {
+  color: #FFF;
+
+  &:hover{
+    color: #FA5959;
+  }
+  
+}
+
+//Formulari:
+.form-control {
+  border: 2px solid transparent; 
+}
+
+.invalid-feedback,
+.valid-feedback {
+  margin-top: -0.22em;
+}
+
+//Icones Xarxes socials:
+.xs {
+  fill: #FFF;
+  
+  &:hover {
+    fill: $danger;
+  }
+}
+
+// Botons (2/2): 
+@mixin tipo-semibold {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  font-size: smaller;
+}
+
+.btn-primary {
+  @include tipo-semibold; 
+
+  &:not(.invariable) { // Exclou botons "More Info" de la modificació pq disseny actiu no canvia
+    border-width: 2px;
+  
+    &:hover {
+      color: $primary;
+      background-color: #FFF;
+      border-color: $primary;
+    }
+  }    
+}
+
+.btn-light {
+  @include tipo-semibold; 
+  color: $gray-700;
+  border-width: 2px;
+
+  &:hover {
+    background-color: #FFF;
+    border-color: $gray-700;
+  }
+}
+
+@media (max-width: 365px)  {
+  
+  .container-fluid {
+      padding-right: 0;
+      padding-left: 0;
+    }  
+}
+
+/* Nivell 3 : Exercici 7 => Posicionament cards amb herència de classes i nth-child: 
+
+NOTA: En l'exercici 3 això ho havia maquetat posant directament a l'html margins cada cop més grans (mt-4, mt-8 i mt-12) a cada classe de la card, això ho he eliminat de l'html per deixar aquesta solució, més còmoda i escalable:
+*/
+
+@media (min-width: 767px) {
+
+  @for $i from 1 through 3 {
+    #cards>div:nth-child(#{$i}) {
+      margin-top: 5em * $i - $i;
+    }
+  }
+}
+
+@media (min-width: 704px) and (max-width: 767px) {
+
+  @for $i from 1 through 3 {
+    #cards>div:nth-child(#{$i}) {
+      margin-top: 5em * $i - $i;
+
+      @if $i == 3 { // Reajustem la tercera quan queda en segona fila
+      margin-top: 2em * $i - $i;
+      }
+    }
+  }
+}
