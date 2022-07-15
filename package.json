@@ -1,0 +1,14 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "purgecss --css css/main.css --content index.html -o css/styles.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}
