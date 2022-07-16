@@ -593,6 +593,48 @@ button:not(:disabled),
   color: #FA5959;
 }
 
+
+.was-validated :valid ~ .valid-feedback,
+.was-validated :valid ~ .valid-tooltip,
+.is-valid ~ .valid-feedback,
+.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated .form-control:valid, .form-control.is-valid {
+  border-color: #198754;
+  padding-right: 2.66em;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.665em center;
+  background-size: 1.33em 1.33em;
+}
+.was-validated .form-control:valid:focus, .form-control.is-valid:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+
+.was-validated :invalid ~ .invalid-feedback,
+.was-validated :invalid ~ .invalid-tooltip,
+.is-invalid ~ .invalid-feedback,
+.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid {
+  border-color: #FA5959;
+  padding-right: 2.66em;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cg fill='none' fill-rule='evenodd'%3e%3ccircle cx='10' cy='10' r='10' fill='%23FA5959'/%3e%3cg fill='%23FFF' transform='translate%289 5%29'%3e%3crect width='2' height='7' rx='1'/%3e%3crect width='2' height='2' y='8' rx='1'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.665em center;
+  background-size: 1.33em 1.33em;
+}
+.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
+  border-color: #FA5959;
+  box-shadow: 0 0 0 0.25rem rgba(250, 89, 89, 0.25);
+}
+
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -1797,7 +1839,7 @@ footer .nav .nav-item .nav-link:hover {
     padding-left: 0;
   }
 }
-/* Nivell 3 : Exercici 7 => Posicionament cards amb herència de classes i nth-child: 
+/* Nivell 3 : Exercici 7 => Maquetació cards amb herència de classes i nth-child: 
 
 NOTA: En l'exercici 3 això ho havia maquetat posant directament a l'html margins cada cop més grans (mt-4, mt-8 i mt-12) a cada classe de la card, això ho he eliminat de l'html per deixar aquesta solució, més còmoda i escalable:
 */
